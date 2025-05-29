@@ -29,3 +29,11 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
+    
+class Contato(models.Model):
+    nome = models.CharField(max_length=100)
+    email = models.EmailField()
+    mensagem = models.TextField()
+
+    def __str__(self):
+        return self.nome

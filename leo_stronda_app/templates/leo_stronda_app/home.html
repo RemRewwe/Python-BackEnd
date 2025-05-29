@@ -1,47 +1,22 @@
-{% load static %}  <!-- Carrega a tag static para arquivos estáticos -->
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Página Inicial{% endblock %}</title>
-    <link href=https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css rel="stylesheet" integrity="" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'leo_stronda_app/css/styles.css' %}">
-</head>
-<body>
-    <header>
-        <div class="logo">
-            <img src="{% static 'leo_stronda_app/img/logo.png' %}" alt="Logo">
-        </div>
-        
-        <!-- Navegação principal com URLs Django -->
-        <nav class="main-nav">
-            <ul>
-                <li class="active">
-                    <a href="{% url 'home' %}">Home</a>
-                </li>
-                <li>
-                    <a href="{% url 'produto' %}">Produtos</a>
-                </li>
-                <li>
-                    <a href="{% url 'contatos' %}">Contato</a>
-                </li>
-                {% if user.is_authenticated %}
-                <li>
-                    <a href="{% url 'painel' %}">Painel</a>
-                </li>
-                {% endif %}
-            </ul>
-        </nav>
-    </header>
+{% extends 'leo_stronda_app/base.html' %}
 
-    <main>
-        {% block content %}
+{% block title %}Casa do Monstro {% endblock %}
+
+{% block content %}
+
+<!-- Parte do Header -->
+{% with "Bem-vindo a página principal, a casa do monstro" as header_title %}
+{% with "Conheça nossos treinos ou fale conosco" as header_subtitle %}
+    {% include 'leo_stronda_app/partials/_header.html' %}
+{% endwith %}
+{% endwith %}
+
+
         <!-- Conteúdo principal -->
         <section class="banner">
-            <h1>Bem-vindo ao nosso site</h1>
-            <p>Conheça nossos <a href="{% url 'produto' %}">produtos</a> ou <a href="{% url 'contatos' %}">fale conosco</a></p>
+            <h1>Bem-vindo a Casa do Monstro</h1>
+            <p>Conheça nossos <a href="{% url 'produto' %}">treinos ou produtos</a> ou <a href="{% url 'contatos' %}">fale conosco</a></p>
         </section>
 
         <section class="destaques">
@@ -61,11 +36,7 @@
     </main>
 
     <footer>
-        <div class="footer-links">
-            <a> Política de Privacidade </a>
-            <a> Termos de Uso </a>
-        </div>
-        <p>&copy; {% now "Y" %} {{ SITE_NAME }}. Todos os direitos reservados.</p>
+        <p>&copy; 2025 - Meu Projeto Django</p>
     </footer>
 </body>
 </html>

@@ -1,49 +1,39 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nossos Produtos</title>
-    <style>
-        /* Estilos consistentes para todas as páginas */
-        nav ul { display: flex; gap: 20px; list-style: none; padding: 0; }
-        .produto { border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; }
-        .destaque { background-color: #f8f9fa; }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Nossos Produtos</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'produto' %}" class="ativo">Produtos</a></li>
-                <li><a href="{% url 'contatos' %}">Contato</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section>
-            <h2>Catálogo</h2>
-            
-            <!-- Estrutura para lista dinâmica de produtos -->
-            <div class="produtos-lista">
-                {% for produto in produtos %}
-                <div class="produto {% if produto.destaque %}destaque{% endif %}">
-                    <h3>{{ produto.nome }}</h3>
-                    <p>{{ produto.descricao }}</p>
-                    <span>R$ {{ produto.preco }}</span>
+{% extends 'leo_stronda_app/base.html' %}
+
+{% block title %}Nossos Produtos{% endblock %}
+
+{% block content %}
+
+{% with "Nossos Produtos" as header_title %}
+{% with "Conheça nossa linha completa" as header_subtitle %}
+    {% include 'leo_stronda_app/partials/_header.html' %}
+{% endwith %}
+{% endwith %}
+
+
+<div class="container mt-4">
+    <div class="row">
+        {% for produto in produtos %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ produto.nome }}</h5>
+                    <p class="card-text flex-grow-1">{{ produto.descricao }}</p>
+                    <div class="mt-auto">
+                        <p class="text-success fw-bold mb-2">R$ {{ produto.preco }}</p>
+                        <a href="#" class="btn btn-outline-primary w-100">Detalhes</a>
+                    </div>
                 </div>
-                {% empty %}
-                <p>Nenhum produto disponível no momento.</p>
-                {% endfor %}
             </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; {% now "Y" %} Minha Empresa. Todos os direitos reservados.</p>
-    </footer>
-</body>
-</html>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-warning">
+                Nenhum produto disponível no momento.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

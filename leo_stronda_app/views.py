@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Produto
 from django.conf import settings
-from .forms import ProdutoForm, ProfileForm
+from .forms import ProdutoForm, ProfileForm, ContatoForm
 import os
 
 def home(request):
@@ -44,3 +44,13 @@ def upload_profile(request):
     else:
         form = ProfileForm()
     return render(request, 'leo_stronda_app/upload_profile.html', {'form': form})
+
+def contato(request):
+    if request.method == 'POST':
+        form = ContatoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('contatos')
+    else:
+        form = ContatoForm()
+    return render(request, 'leo_stronda_app/contatos.html', {'form': form})
