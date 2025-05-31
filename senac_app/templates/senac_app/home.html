@@ -1,0 +1,41 @@
+{% extends 'senac_app/base.html' %}
+
+{% block title %}Senac RJ{% endblock %}
+
+{% block content %}
+
+<!-- Parte do Header -->
+{% with "Bem-vindo a página principal" as header_title %}
+{% with "Conheça nossos cursos ou fale conosco" as header_subtitle %}
+    {% include 'senac_app/partials/_header.html' %}
+{% endwith %}
+{% endwith %}
+
+
+        <!-- Conteúdo principal -->
+        <section class="banner">
+            <h1>Bem-vindo ao Senac RJ</h1>
+            <p>Conheça nossos <a href="{% url 'cursos' %}">cursos ou produtos</a> ou <a href="{% url 'contatos' %}">fale conosco</a></p>
+        </section>
+
+        <section class="destaques">
+            <h2>Destaques</h2>
+            <div class="grid">
+                {% for produto in destaques %}
+                <div class="card">
+                    <h3>{{ produto.nome }}</h3>
+                    <p>{{ produto.descricao|truncatechars:100 }}</p>
+                </div>
+                {% empty %}
+                <p>Nenhum destaque no momento.</p>
+                {% endfor %}
+            </div>
+        </section>
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 - Senac Falso</p>
+    </footer>
+</body>
+</html>
